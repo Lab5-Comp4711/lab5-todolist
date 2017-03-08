@@ -17,18 +17,18 @@ class Mtce extends Application {
 		    {
 		        if (!empty($task->status))
 		            $task->status = $this->statuses->get($task->status)->name;
-		        $result .= $this->parser->parse('oneitem', (array) $task, true);
-		    }
+ 				if ($role == ROLE_OWNER)
+        			$result .= $this->parser->parse('oneitemx', (array) $task, true);
+				else
+        			$result .= $this->parser->parse('oneitem', (array) $task, true);		
+        			    }
 		    $this->data['display_tasks'] = $result;
 
 		    // and then pass them on
 		    $this->data['pagebody'] = 'itemlist';
 		    $this->render();
 
-		    if ($role == ROLE_OWNER)
-        		$result .= $this->parser->parse('oneitemx', (array) $task, true);
-			else
-        		$result .= $this->parser->parse('oneitem', (array) $task, true);
+		   
 		}
 
 			// Extract & handle a page of items, defaulting to the beginning
